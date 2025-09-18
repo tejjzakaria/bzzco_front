@@ -3,9 +3,11 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { IconArrowRight } from '@tabler/icons-react'
+import Image from 'next/image';
+import type { Merchant } from './types';
 
 const AllMerchants = () => {
-  const [merchants, setMerchants] = useState<any[]>([]);
+  const [merchants, setMerchants] = useState<Merchant[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
@@ -60,10 +62,12 @@ const AllMerchants = () => {
                       <div className="flex flex-row justify-between items-start mb-6">
                         {/* Logo top left */}
                         <div className="p-10">
-                          <img
+                          <Image
                             src={merchant.logo}
                             alt={`${merchant.name} Logo`}
                             className="h-23 w-auto opacity-90"
+                            width={92}
+                            height={92}
                           />
                         </div>
                         {/* Title and Category top right */}

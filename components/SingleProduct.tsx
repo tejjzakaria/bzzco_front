@@ -9,12 +9,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { useCart } from './CartContext';
+import Image from 'next/image';
+import type { Product } from './types';
 
 export default function SingleProduct({ id }: { id: string }) {
-    const [product, setProduct] = useState<any>(null);
+    const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [related, setRelated] = useState<any[]>([]);
+    const [related, setRelated] = useState<Product[]>([]);
     const swiperRef = useRef<any>(null);
     const { items, setItems } = useCart();
 
@@ -84,7 +86,7 @@ export default function SingleProduct({ id }: { id: string }) {
                                     {product.images.map((img: string, idx: number) => (
                                         <SwiperSlide key={idx}>
                                             <div className="w-full h-full flex items-center justify-center">
-                                                <img src={img} alt={product.productTitle} className="w-full h-full object-cover rounded-xl" />
+                                                <Image src={img} alt={product.productTitle} className="w-full h-full object-cover rounded-xl" width={440} height={384} />
                                             </div>
                                         </SwiperSlide>
                                     ))}
@@ -97,7 +99,7 @@ export default function SingleProduct({ id }: { id: string }) {
                         {product.images && product.images.length > 1 && (
                             <div className="flex gap-2 mt-2">
                                 {product.images.map((img: string, idx: number) => (
-                                    <img key={idx} src={img} alt="thumb" className="w-16 h-16 object-cover rounded-lg border border-orange-200" />
+                                    <Image key={idx} src={img} alt="thumb" className="w-16 h-16 object-cover rounded-lg border border-orange-200" width={64} height={64} />
                                 ))}
                             </div>
                         )}
@@ -106,7 +108,7 @@ export default function SingleProduct({ id }: { id: string }) {
                     <div className="flex-1 flex flex-col gap-1">
                         <h1 className="text-3xl font-bold text-black mb-2">{product.productTitle}</h1>
 
-                        <div className="text-sm text-orange-500 font-medium">Seller: {product.vendor && product.vendor.full_name ? product.vendor.full_name : 'N/A'}</div>
+                        <div className="text-sm text-orange-500 font-medium">Seller: {typeof product.vendor === 'object' && product.vendor?.full_name ? product.vendor.full_name : typeof product.vendor === 'string' ? product.vendor : 'N/A'}</div>
 
                         <div className="text-sm text-orange-500 font-medium mb-2">Category: {product.category}</div>
                         <div className="text-gray-500 mb-2">{product.description}</div>
@@ -192,11 +194,11 @@ export default function SingleProduct({ id }: { id: string }) {
                         <div className="flex flex-col gap-2 mt-2">
                             <span className="text-xs text-gray-500 mb-1">Payment Methods:</span>
                             <div className="flex gap-3 items-center">
-                                <img src="/visa.svg" alt="Visa" className="h-12" />
-                                <img src="/mastercard.svg" alt="Mastercard" className="h-12" />
-                                <img src="/paypal.svg" alt="PayPal" className="h-12" />
-                                <img src="/apple-pay.svg" alt="Apple Pay" className="h-12" />
-                                <img src="/amex.svg" alt="Amex" className="h-12" />
+                                <Image src="/visa.svg" alt="Visa" className="h-12" width={48} height={48} />
+                                <Image src="/mastercard.svg" alt="Mastercard" className="h-12" width={48} height={48} />
+                                <Image src="/paypal.svg" alt="PayPal" className="h-12" width={48} height={48} />
+                                <Image src="/apple-pay.svg" alt="Apple Pay" className="h-12" width={48} height={48} />
+                                <Image src="/amex.svg" alt="Amex" className="h-12" width={48} height={48} />
                             </div>
                         </div>
                         {/* shipping and returns */}
@@ -222,7 +224,7 @@ export default function SingleProduct({ id }: { id: string }) {
                             <a key={prod._id} href={`/products/${prod._id}`} className="block bg-white rounded-xl shadow hover:shadow-lg transition-all duration-200 overflow-hidden">
                                 <div className="w-full aspect-square bg-orange-50 flex items-center justify-center">
                                     {prod.images && prod.images.length > 0 ? (
-                                        <img src={prod.images[0]} alt={prod.productTitle} className="w-full h-full object-cover" />
+                                        <Image src={prod.images[0]} alt={prod.productTitle} className="w-full h-full object-cover" width={400} height={400} />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-orange-300">No Image</div>
                                     )}

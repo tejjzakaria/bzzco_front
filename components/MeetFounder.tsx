@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image';
 
 const MeetFounder = () => {
   return (
@@ -9,7 +10,7 @@ const MeetFounder = () => {
           <p className='text-lg'>Welcome to Baazizi Group, a platform designed to revolutionize the world of construction materials merchants. I am Moussa Baazizi, the founder of this visionary project, born from a simple yet powerful idea.</p>
         </div>
         <div className='w-1/2 ml-15'>
-            <img src="/moussa.png" alt="About Us" className='mt-8 rounded-l-full' width={900} height={900}/>
+            <Image src="/moussa.png" alt="About Us" className='mt-8 rounded-l-full' width={900} height={900}/>
         </div>
         
     </div>

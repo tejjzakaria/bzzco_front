@@ -5,15 +5,17 @@ import { IconArrowRight } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useCart } from './CartContext';
+import Image from 'next/image';
+import type { Product, CartItem } from './types';
 
 const AllProducts = () => {
-    const [isLiked, setIsLiked] = useState<any[]>([]);
-    const [selectedImage, setSelectedImage] = useState<any[]>([]);
-    const [selectedCategories, setSelectedCategories] = useState(["All Categories"]);
-    const [selectedMerchants, setSelectedMerchants] = useState(["All Merchants"]);
+    const [isLiked, setIsLiked] = useState<boolean[]>([]);
+    const [selectedImage, setSelectedImage] = useState<number[]>([]);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>(["All Categories"]);
+    const [selectedMerchants, setSelectedMerchants] = useState<string[]>(["All Merchants"]);
     const [categoryOpen, setCategoryOpen] = useState(true);
     const [merchantOpen, setMerchantOpen] = useState(false);
-    const [products, setProducts] = useState<any[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<string[]>(["All Categories"]);
     const [merchants, setMerchants] = useState<string[]>(["All Merchants"]);
     const [loading, setLoading] = useState(true);
@@ -31,15 +33,15 @@ const AllProducts = () => {
                 const res = await fetch('/api/products');
                 const data = await res.json();
                 // Only show Published products
-                const published = data.filter((p: any) => p.status === 'Published');
+                const published = data.filter((p: Product) => p.status === 'Published');
                 setProducts(published);
                 setIsLiked(Array(published.length).fill(false));
                 setSelectedImage(Array(published.length).fill(0));
                 // Extract unique categories from products
-                const uniqueCategories = Array.from(new Set(published.map((p: any) => p.category).filter(Boolean))) as string[];
+                const uniqueCategories = Array.from(new Set(published.map((p: Product) => p.category).filter(Boolean))) as string[];
                 setCategories(["All Categories", ...uniqueCategories]);
                 // Extract unique merchants from products
-                const uniqueMerchants = Array.from(new Set(published.map((p: any) => p.vendor).filter(Boolean))) as string[];
+                const uniqueMerchants = Array.from(new Set(published.map((p: Product) => p.vendor).filter(Boolean))) as string[];
                 setMerchants(["All Merchants", ...uniqueMerchants]);
             } catch (e) {
                 setProducts([]);
@@ -104,16 +106,20 @@ const AllProducts = () => {
     // Filter products by search query (in title, description, or vendor)
     const searchedProducts = products.filter(product => {
         if (!searchQuery) return true;
+        const vendorName = typeof product.vendor === 'string' ? product.vendor : product.vendor?.full_name || '';
         return (
             (product.productTitle && product.productTitle.toLowerCase().includes(searchQuery)) ||
             (product.description && product.description.toLowerCase().includes(searchQuery)) ||
-            (product.vendor && product.vendor.toLowerCase().includes(searchQuery))
+            (vendorName && vendorName.toLowerCase().includes(searchQuery))
         );
     });
-    const filteredProducts = searchedProducts.filter(product =>
-        (selectedCategories.includes("All Categories") || selectedCategories.includes(product.category)) &&
-        (selectedMerchants.includes("All Merchants") || selectedMerchants.includes(product.vendor))
-    );
+    const filteredProducts = searchedProducts.filter(product => {
+        const vendorName = typeof product.vendor === 'string' ? product.vendor : product.vendor?.full_name || '';
+        return (
+            (selectedCategories.includes("All Categories") || selectedCategories.includes(product.category)) &&
+            (selectedMerchants.includes("All Merchants") || selectedMerchants.includes(vendorName))
+        );
+    });
     const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
     const paginatedProducts = filteredProducts.slice((currentPage - 1) * PRODUCTS_PER_PAGE, currentPage * PRODUCTS_PER_PAGE);
 
@@ -236,10 +242,12 @@ const AllProducts = () => {
                                     {/* Main Product Image */}
                                     <div className="aspect-square overflow-hidden bg-orange-50 flex items-center justify-center">
                                         {product.images && product.images.length > 0 ? (
-                                            <img
+                                            <Image
                                                 src={product.images[selectedImage[idx]] || product.images[0]}
                                                 alt={product.productTitle}
                                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                width={400}
+                                                height={400}
                                             />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center text-orange-300">No Image</div>
@@ -294,7 +302,7 @@ const AllProducts = () => {
                                             return;
                                         }
                                         // Prepare cart item with expected fields
-                                        const cartItem = {
+                                        const cartItem: CartItem = {
                                             _id: product._id,
                                             name: product.productTitle,
                                             image: product.images && product.images.length > 0 ? product.images[0] : '',
@@ -302,9 +310,9 @@ const AllProducts = () => {
                                             quantity: 1,
                                         };
                                         // Check if already in cart
-                                        const existing = items.find((item: any) => item._id === product._id);
+                                        const existing = items.find((item: CartItem) => item._id === product._id);
                                         if (existing) {
-                                            setItems(items.map((item: any) =>
+                                            setItems(items.map((item: CartItem) =>
                                                 item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
                                             ));
                                         } else {

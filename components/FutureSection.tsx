@@ -1,10 +1,11 @@
 import React from 'react'
+import Image from 'next/image';
 
 const FutureSection = () => {
   return (
     <div className='flex flex-row items-center justify-between px-[15vw] gap-20'>
         <div className='w-1/2'>
-            <img src="/team-engineers.png" alt="About Us" className='mt-8 rounded-xl' width={900} height={900}/>
+            <Image src="/team-engineers.png" alt="About Us" className='mt-8 rounded-xl' width={900} height={900}/>
         </div>
         
         <div className='flex flex-col items-start w-1/2 gap-4'>

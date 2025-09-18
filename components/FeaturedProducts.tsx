@@ -4,11 +4,13 @@ import { Heart, ShoppingCart, Eye, Share2 } from 'lucide-react';
 import { IconArrowRight } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useCart } from './CartContext';
+import Image from 'next/image';
+import type { Product, CartItem } from './types';
 
 const FeaturedProducts = () => {
-    const [products, setProducts] = useState<any[]>([]);
-    const [isLiked, setIsLiked] = useState<any[]>([]);
-    const [selectedImage, setSelectedImage] = useState<any[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
+    const [isLiked, setIsLiked] = useState<boolean[]>([]);
+    const [selectedImage, setSelectedImage] = useState<number[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const { items, setItems, setIsOpen } = useCart();
@@ -22,8 +24,8 @@ const FeaturedProducts = () => {
                 if (!res.ok) throw new Error('Failed to fetch');
                 const data = await res.json();
                 // Only show Published products, sort by createdAt desc, take first 3
-                const published = data.filter((p: any) => p.status === 'Published');
-                const sorted = published.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+                const published = data.filter((p: Product) => p.status === 'Published');
+                const sorted = published.sort((a: Product, b: Product) => new Date(b.createdAt ?? '').getTime() - new Date(a.createdAt ?? '').getTime());
                 const latest = sorted.slice(0, 3);
                 setProducts(latest);
                 setIsLiked(Array(latest.length).fill(false));
@@ -100,10 +102,12 @@ const FeaturedProducts = () => {
                                 {/* Main Product Image */}
                                 <div className="aspect-square overflow-hidden bg-orange-50 flex items-center justify-center">
                                     {product.images && product.images.length > 0 ? (
-                                        <img
+                                        <Image
                                             src={product.images[selectedImage[idx]] || product.images[0]}
                                             alt={product.productTitle}
                                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                            width={400}
+                                            height={400}
                                         />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-orange-300">No Image</div>
@@ -130,7 +134,7 @@ const FeaturedProducts = () => {
                         {/* Content Section */}
                         <div className="p-5">
                             <span className="text-xs font-medium text-orange-600 uppercase tracking-wide mb-2 block">
-                                {product.vendor || 'Unknown Merchant'}
+                                {product.vendor && typeof product.vendor === 'string' && product.vendor.trim() !== '' ? product.vendor : 'No Merchant'}
                             </span>
                             <Link href={`/products/${product._id}`} prefetch={false}>
                                 <h3 className="font-semibold text-gray-900 text-lg mb-2 line-clamp-2 group-hover:text-orange-600 transition-colors cursor-pointer">
@@ -166,9 +170,9 @@ const FeaturedProducts = () => {
                                         quantity: 1,
                                     };
                                     // Check if already in cart
-                                    const existing = items.find((item: any) => item._id === product._id);
+                                    const existing = items.find((item: CartItem) => item._id === product._id);
                                     if (existing) {
-                                        setItems(items.map((item: any) =>
+                                        setItems(items.map((item: CartItem) =>
                                             item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
                                         ));
                                     } else {

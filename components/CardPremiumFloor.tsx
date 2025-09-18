@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image';
 import { Card } from './ui/card'
 
 
@@ -65,12 +66,14 @@ const CardPremiumFloor = ({ title, subtitle, offer, image, accent, blue }: CardP
 
                         <div className="absolute top-0 right-0 w-3/5 h-full overflow-hidden">
                             {/* Background Image - always fills area */}
-                            <img
+                            <Image
                                 src={image}
                                 alt="Card background"
                                 className="object-cover object-center w-full h-full min-h-full min-w-full block"
                                 style={{ display: 'block', height: '100%', width: '100%' }}
                                 draggable={false}
+                                width={800}
+                                height={384}
                             />
                             {/* Black Overlay */}
                             <div className="absolute inset-0 bg-black/60 pointer-events-none"></div>

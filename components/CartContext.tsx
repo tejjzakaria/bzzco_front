@@ -1,11 +1,17 @@
 'use client';
 import React, { createContext, useContext, useEffect, useState } from "react";
+import type { CartItem } from './types';
 
-const CartContext = createContext<any>(undefined);
+const CartContext = createContext<{
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  items: CartItem[];
+  setItems: (items: CartItem[]) => void;
+} | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [items, setItemsState] = useState<any[]>(() => {
+  const [items, setItemsState] = useState<CartItem[]>(() => {
     if (typeof window !== 'undefined') {
       try {
         const stored = localStorage.getItem('cart_items');
@@ -18,7 +24,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   });
 
   // Custom setItems that also updates localStorage immediately
-  const setItems = (newItems: any[]) => {
+  const setItems = (newItems: CartItem[]) => {
     setItemsState(newItems);
     if (typeof window !== 'undefined') {
       localStorage.setItem('cart_items', JSON.stringify(newItems));

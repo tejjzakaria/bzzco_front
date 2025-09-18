@@ -5,6 +5,8 @@ import Link from "next/link";
 import Select from 'react-select';
 import { countries } from './countries';
 import { IconUser } from "@tabler/icons-react";
+import Image from 'next/image';
+import type { CartItem } from './types';
 
 const customSelectStyles = {
     control: (provided: any, state: any) => ({
@@ -39,7 +41,7 @@ const customSelectStyles = {
 
 export default function CheckoutPage() {
     const { items } = useCart();
-    const [cart, setCart] = useState(items);
+    const [cart, setCart] = useState<CartItem[]>(items);
     const [selectedCountry, setSelectedCountry] = useState<{ value: string; label: string } | null>(null);
 
     useEffect(() => {
@@ -129,9 +131,9 @@ export default function CheckoutPage() {
                         <div className="text-orange-400 text-center py-8">Your cart is empty.</div>
                     ) : (
                         <div className="space-y-4">
-                            {cart.map((item: any) => (
+                            {cart.map((item: CartItem) => (
                                 <div key={item._id} className="flex items-center gap-4 bg-white rounded-lg shadow p-3">
-                                    <img src={item.image} alt={item.name} className="w-14 h-14 object-cover rounded" />
+                                    <Image src={item.image} alt={item.name} className="w-14 h-14 object-cover rounded" width={56} height={56} />
                                     <div className="flex-1">
                                         <div className="font-semibold text-gray-900">{item.name}</div>
                                         <div className="text-sm text-gray-500">Qty: {item.quantity}</div>
@@ -142,7 +144,7 @@ export default function CheckoutPage() {
                             <div className="flex justify-between items-center border-t pt-4 mt-4">
                                 <span className="font-bold text-lg">Total</span>
                                 <span className="font-bold text-lg text-orange-600">
-                                    ${cart.reduce((sum: number, item: any) => sum + item.price * item.quantity, 0).toFixed(2)}
+                                    ${cart.reduce((sum: number, item: CartItem) => sum + item.price * item.quantity, 0).toFixed(2)}
                                 </span>
                             </div>
                         </div>
