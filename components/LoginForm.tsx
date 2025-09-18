@@ -26,7 +26,7 @@ const LoginForm = () => {
                         <button className='w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-lg transition cursor-pointer' type='submit'>Sign In</button>
                     </div>
                     <div className='text-center'>
-                        <span>Don't have an account yet? <a className='text-orange-400' href="/signup">Sign up</a></span>
+                        <span>Don&apos;t have an account yet? <a className='text-orange-400' href="/signup">Sign up</a></span>
                     </div>
                 </form>
             </div>

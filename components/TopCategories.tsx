@@ -4,12 +4,14 @@ import React from 'react'
 import { IconArrowRight } from '@tabler/icons-react'
 import { ChevronRight, Home, Bath, Hammer, Palette, Scissors } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 
 
 
 const TopCategories = () => {
-    const [categories, setCategories] = useState<any[]>([]);
+    const [categories, setCategories] = useState<{ _id: string; name: string; icon: string }[]>([]);
         const [loading, setLoading] = useState(true);
         const [error, setError] = useState(false);
     
@@ -40,7 +42,7 @@ const TopCategories = () => {
                     <div className="w-44 h-1 bg-orange-500 rounded-none" />
                 </div>
                 <div className='flex flex-row items-center gap-2 text-orange-500 font-semibold cursor-pointer ml-8'>
-                    <a href="/categories" className="text-orange-500 cursor-pointer">View all</a><IconArrowRight />
+                    <Link href="/categories" className="text-orange-500 cursor-pointer">View all</Link><IconArrowRight />
                 </div>
             </div>
 
@@ -57,7 +59,7 @@ const TopCategories = () => {
                         >
                             {/* Icon Circle */}
                             <div className={`w-20 h-20 rounded-full flex items-center justify-center bg-orange-100 border-orange-300 border-2 group-hover:shadow-lg transition-all duration-200 group-hover:scale-105`}>
-                                <img src={category.icon} alt={category.name} className="w-8 h-8 object-contain" />
+                                <Image src={category.icon} alt={category.name} className="w-8 h-8 object-contain" width={32} height={32} />
                             </div>
                             {/* Category Name */}
                             <h3 className="text-sm font-medium text-gray-800 mt-3 text-center leading-tight group-hover:text-orange-500 transition-colors">

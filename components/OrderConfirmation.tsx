@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link';
 
 const OrderConfirmation = () => {
   return (
@@ -20,7 +21,7 @@ const OrderConfirmation = () => {
             <span className="font-semibold">3-5 business days</span>
           </div>
         </div>
-        <a href="/" className="mt-4 inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-lg transition">Continue Shopping</a>
+        <Link href="/" className="mt-4 inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-lg transition">Continue Shopping</Link>
       </div>
     </div>
   )

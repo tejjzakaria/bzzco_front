@@ -1,9 +1,10 @@
 'use client';
 import { IconArrowRight } from '@tabler/icons-react'
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link';
 
 const TopMerchants = () => {
-    const [merchants, setMerchants] = useState<any[]>([]);
+    const [merchants, setMerchants] = useState<{ _id: string; name: string; logo: string; subtitle?: string; category?: { name?: string } }[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
@@ -41,7 +42,7 @@ const TopMerchants = () => {
                     <div className="w-44 h-1 bg-orange-500 rounded-none" />
                 </div>
                 <div className='flex flex-row items-center gap-2 text-orange-500 font-semibold cursor-pointer ml-8'>
-                    <a href="/merchants" className="text-orange-500 cursor-pointer">View all</a><IconArrowRight />
+                    <Link href="/merchants" className="text-orange-500 cursor-pointer">View all</Link><IconArrowRight />
                 </div>
             </div>
             <div className='pt-10 flex flex-row gap-8'>

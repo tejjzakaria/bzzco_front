@@ -11,6 +11,6 @@ export async function GET() {
         return Response.json(merchants);
     } catch (error) {
         console.error('Merchant API error:', error);
-        return Response.json({ error: 'Failed to fetch merchants', details: typeof error === 'object' && error !== null ? (error as any).message : String(error) }, { status: 500 });
+        return Response.json({ error: 'Failed to fetch merchants', details: typeof error === 'object' && error !== null ? (error as Error).message : String(error) }, { status: 500 });
     }
 }
