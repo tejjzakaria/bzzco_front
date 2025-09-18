@@ -8,8 +8,17 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import CardPremiumFloor from "./CardPremiumFloor";
 
+interface SliderCard {
+  title: string;
+  subtitle: string;
+  offer: string;
+  image: string;
+  accent: string;
+  blue: string;
+}
+
 const PremiumFloorSlider = () => {
-  const [sliderData, setSliderData] = useState([]);
+  const [sliderData, setSliderData] = useState<SliderCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -20,8 +29,8 @@ const PremiumFloorSlider = () => {
         if (!res.ok) throw new Error("Failed to fetch slider data");
         const data = await res.json();
         setSliderData(data);
-      } catch (err: any) {
-        setError(err.message || "Unknown error");
+      } catch (err: unknown) {
+        setError(err instanceof Error ? err.message : "Unknown error");
       } finally {
         setLoading(false);
       }
@@ -49,7 +58,7 @@ const PremiumFloorSlider = () => {
         pagination={{ clickable: true }}
         className="w-full max-w-5xl"
       >
-        {sliderData.map((card: any, idx: number) => (
+        {sliderData.map((card: SliderCard, idx: number) => (
           <SwiperSlide key={idx}>
             <CardPremiumFloor
               title={card.title}

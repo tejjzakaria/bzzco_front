@@ -7,31 +7,32 @@ import { countries } from './countries';
 import { IconUser } from "@tabler/icons-react";
 import Image from 'next/image';
 import type { CartItem } from './types';
+import type { StylesConfig, GroupBase, ControlProps, OptionProps, SingleValueProps, MenuProps, CSSObjectWithLabel } from 'react-select';
 
-const customSelectStyles = {
-    control: (provided: any, state: any) => ({
+const customSelectStyles: StylesConfig<{ value: string; label: string }, false> = {
+    control: (provided: CSSObjectWithLabel, state: ControlProps<{ value: string; label: string }, false, GroupBase<{ value: string; label: string }>>) => ({
         ...provided,
         backgroundColor: 'white',
-        borderColor: state.isFocused ? '#fb923c' : '#fed7aa', // orange-400 or orange-200
+        borderColor: state.isFocused ? '#fb923c' : '#fed7aa',
         boxShadow: state.isFocused ? '0 0 0 2px #fb923c33' : undefined,
-        borderRadius: '0.5rem', // rounded-lg
+        borderRadius: '0.5rem',
         minHeight: '2.5rem',
         paddingLeft: '0.5rem',
         paddingRight: '0.5rem',
         fontSize: '1rem',
         transition: 'all 0.2s',
     }),
-    option: (provided: any, state: any) => ({
+    option: (provided: CSSObjectWithLabel, state: OptionProps<{ value: string; label: string }, false, GroupBase<{ value: string; label: string }>>) => ({
         ...provided,
         backgroundColor: state.isSelected ? '#fb923c' : state.isFocused ? '#fed7aa' : 'white',
-        color: state.isSelected ? 'white' : '#1f2937', // gray-900
+        color: state.isSelected ? 'white' : '#1f2937',
         fontSize: '1rem',
     }),
-    singleValue: (provided: any) => ({
+    singleValue: (provided: CSSObjectWithLabel, _state: SingleValueProps<{ value: string; label: string }, false, GroupBase<{ value: string; label: string }>>) => ({
         ...provided,
-        color: '#1f2937', // gray-900
+        color: '#1f2937',
     }),
-    menu: (provided: any) => ({
+    menu: (provided: CSSObjectWithLabel, _state: MenuProps<{ value: string; label: string }, false, GroupBase<{ value: string; label: string }>>) => ({
         ...provided,
         borderRadius: '0.5rem',
         boxShadow: '0 2px 8px rgba(0,0,0,0.08)',

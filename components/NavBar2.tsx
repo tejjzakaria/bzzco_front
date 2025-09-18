@@ -18,6 +18,7 @@ import { ShoppingBagIcon, User2Icon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCart } from "./CartContext";
 import TopBar from "./TopBar";
+import type { CartItem } from './types';
 
 export function NavBar() {
     const languages = [
@@ -105,7 +106,7 @@ export function NavBar() {
 
     // Sticky/fixed navbar for always visible navigation
     const { setIsOpen, items } = useCart();
-    const cartCount = items.reduce((sum: number, item: any) => sum + (item.quantity || 1), 0);
+    const cartCount = items.reduce((sum: number, item: CartItem) => sum + (item.quantity || 1), 0);
     return (
         <div>
             <TopBar />

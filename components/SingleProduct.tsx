@@ -10,14 +10,15 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { useCart } from './CartContext';
 import Image from 'next/image';
-import type { Product } from './types';
+import type { Product, CartItem } from './types';
+import { Swiper as SwiperType } from 'swiper';
 
 export default function SingleProduct({ id }: { id: string }) {
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [related, setRelated] = useState<Product[]>([]);
-    const swiperRef = useRef<any>(null);
+    const swiperRef = useRef<SwiperType | null>(null);
     const { items, setItems } = useCart();
 
     useEffect(() => {
@@ -34,7 +35,7 @@ export default function SingleProduct({ id }: { id: string }) {
                     const relRes = await fetch(`/api/products?category=${encodeURIComponent(data.category)}`);
                     if (relRes.ok) {
                         const relData = await relRes.json();
-                        setRelated(relData.filter((p: any) => p._id !== data._id).slice(0, 4));
+                        setRelated(relData.filter((p: Product) => p._id !== data._id).slice(0, 4));
                     }
                 }
             } catch (e) {
@@ -170,15 +171,21 @@ export default function SingleProduct({ id }: { id: string }) {
                                             quantity,
                                         };
                                         // Check if already in cart
-                                        const existing = items.find((item: any) => item._id === product._id);
+                                        const existing = items.find((item: CartItem) => item._id === product._id);
                                         if (existing) {
-                                            setItems(items.map((item: any) =>
-                                                item._id === product._id ? { ...item, quantity: item.quantity + quantity } : item
+                                            setItems(items.map((item: CartItem) =>
+                                                item._id === product._id ? { ...item, quantity: (item.quantity ?? 1) + quantity } : item
                                             ));
                                         } else {
                                             setItems([
                                                 ...items,
-                                                cartItem
+                                                {
+                                                    _id: product._id,
+                                                    name: product.productTitle,
+                                                    image: product.images && product.images.length > 0 ? product.images[0] : '',
+                                                    price: product.productDiscountedPrice ?? product.productPrice,
+                                                    quantity,
+                                                }
                                             ]);
                                         }
                                         // Optionally open cart drawer if available
