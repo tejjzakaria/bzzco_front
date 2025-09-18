@@ -5,6 +5,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { SearchIcon } from "lucide-react";
 
+// PixelData type for canvas animation
+export type PixelData = { x: number; y: number; r: number; color: string };
+
 export function PlaceholdersAndVanishInput({
     placeholders,
     onChange,
@@ -46,7 +49,8 @@ export function PlaceholdersAndVanishInput({
     }, [placeholders]);
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const newDataRef = useRef<any[]>([]);
+    // Replace any[] with number[][] for pixel data
+    const newDataRef = useRef<PixelData[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
     const [value, setValue] = useState("");
     const [animating, setAnimating] = useState(false);
@@ -70,7 +74,8 @@ export function PlaceholdersAndVanishInput({
 
         const imageData = ctx.getImageData(0, 0, 800, 800);
         const pixelData = imageData.data;
-        const newData: any[] = [];
+        // Replace any[] with number[][] for pixel data
+        const newData: PixelData[] = [];
 
         for (let t = 0; t < 800; t++) {
             let i = 4 * t * 800;
@@ -84,23 +89,14 @@ export function PlaceholdersAndVanishInput({
                     newData.push({
                         x: n,
                         y: t,
-                        color: [
-                            pixelData[e],
-                            pixelData[e + 1],
-                            pixelData[e + 2],
-                            pixelData[e + 3],
-                        ],
+                        r: 1,
+                        color: `rgba(${pixelData[e]}, ${pixelData[e + 1]}, ${pixelData[e + 2]}, ${pixelData[e + 3]})`,
                     });
                 }
             }
         }
 
-        newDataRef.current = newData.map(({ x, y, color }) => ({
-            x,
-            y,
-            r: 1,
-            color: `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3]})`,
-        }));
+        newDataRef.current = newData;
     }, [value]);
 
     useEffect(() => {
