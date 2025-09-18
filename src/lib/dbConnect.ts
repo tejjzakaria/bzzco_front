@@ -14,7 +14,7 @@ if (!MONGODB_URI) {
     throw new Error("Please define the MONGODB_URI environment variable inside .env.local");
 }
 
-let cached: {
+const cached: {
     conn: typeof mongoose | null;
     promise: Promise<typeof mongoose> | null;
 } = global.mongooseCache || { conn: null, promise: null };
