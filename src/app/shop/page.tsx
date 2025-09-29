@@ -8,7 +8,7 @@ const page = () => {
   return (
     <Layout>
         <NavBar/>
-        <Suspense>
+        <Suspense fallback={null}>
           <AllProducts/>
         </Suspense>
         <Footer/>
