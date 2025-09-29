@@ -9,7 +9,7 @@ const page = () => {
     <Layout>
         <NavBar/>
         <Suspense fallback={null}>
-          <AllProducts/>
+          <AllProducts/> 
         </Suspense>
         <Footer/>
     </Layout>
