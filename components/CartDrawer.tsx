@@ -9,6 +9,9 @@ import type { CartItem } from './types';
 export default function CartDrawer() {
   const { isOpen, setIsOpen, items, setItems } = useCart();
   const router = useRouter();
+  const [hasMounted, setHasMounted] = React.useState(false);
+  React.useEffect(() => { setHasMounted(true); }, []);
+  if (!hasMounted) return null;
   return (
     <>
       {/* Overlay */}
@@ -28,7 +31,11 @@ export default function CartDrawer() {
           ) : (
             items.map((item: CartItem) => (
               <div key={item._id} className="flex items-center gap-4 py-2 border-b border-orange-50">
-                <Image src={item.image} alt={item.name} className="w-14 h-14 object-cover rounded" width={56} height={56} />
+                {item.image ? (
+                  <Image src={item.image} alt={item.name} className="w-14 h-14 object-cover rounded" width={56} height={56} />
+                ) : (
+                  <Image src="/file.svg" alt="No image" className="w-14 h-14 object-cover rounded" width={56} height={56} />
+                )}
                 <div className="flex-1">
                   <div className="font-semibold w-[50px]">{item.name}</div>
                   <div className="text-sm text-gray-500">Qty: {item.quantity}</div>

@@ -10,7 +10,7 @@ import {
     MobileNavToggle,
     MobileNavMenu,
 } from "./ui/resizable-navbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Select from "react-select";
 import { PlaceholdersAndVanishInput } from "./ui/placeholders-and-vanish-input_2";
 import { SearchBarInput } from "./SearchBar";
@@ -70,6 +70,9 @@ export function NavBar() {
     // Sticky/fixed navbar for always visible navigation
     const { setIsOpen, items } = useCart();
     const cartCount = items.reduce((sum: number, item: CartItem) => sum + (item.quantity || 1), 0);
+    const [hasMounted, setHasMounted] = useState(false);
+    // Ensure cartCount badge only renders on client
+    useEffect(() => { setHasMounted(true); }, []);
     return (
         <div>
             <TopBar />
@@ -97,7 +100,7 @@ export function NavBar() {
                                             aria-label="Open cart"
                                         >
                                             <ShoppingBagIcon size='22' color="#f37321" />
-                                            {cartCount > 0 && (
+                                            {hasMounted && cartCount > 0 && (
                                                 <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full px-1.5 py-0.5 min-w-[20px] text-center">
                                                     {cartCount}
                                                 </span>
