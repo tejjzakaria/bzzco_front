@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import Product from '@/models/Product';
 import { connectToDatabase } from '@/lib/mongodb';
 
-export async function GET(req: Request, context: { params: { id: string } }) {
+export async function GET(request: NextRequest, context: { params: { id: string } }): Promise<Response> {
   await connectToDatabase();
   const { params } = context;
   try {
