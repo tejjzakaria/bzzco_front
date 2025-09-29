@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Layout from '../../../components/Layout'
 import AllProducts from '../../../components/AllProducts'
 import { NavBar } from '../../../components/NavBar'
@@ -8,7 +8,9 @@ const page = () => {
   return (
     <Layout>
         <NavBar/>
-        <AllProducts/>
+        <Suspense>
+          <AllProducts/>
+        </Suspense>
         <Footer/>
     </Layout>
   )
