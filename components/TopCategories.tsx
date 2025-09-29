@@ -33,13 +33,13 @@ const TopCategories = () => {
             fetchCategories();
         }, []);
     return (
-        <div className='px-[15vw] py-15'>
-            <div className="w-full flex flex-row items-center justify-between">
+        <div className='px-4 sm:px-8 md:px-[15vw] py-8 sm:py-12 md:py-15'>
+            <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex flex-col items-center">
-                    <h2 className="text-2xl font-bold">
+                    <h2 className="text-xl sm:text-2xl font-bold">
                         Top <span className="text-orange-500">Categories</span>
                     </h2>
-                    <div className="w-44 h-1 bg-orange-500 rounded-none" />
+                    <div className="w-24 sm:w-44 h-1 bg-orange-500 rounded-none" />
                 </div>
                 <div className='flex flex-row items-center gap-2 text-orange-500 font-semibold cursor-pointer ml-8'>
                     <Link href="/categories" className="text-orange-500 cursor-pointer">View all</Link><IconArrowRight />
@@ -51,7 +51,7 @@ const TopCategories = () => {
             ) : error ? (
                 <div className="w-full flex justify-center items-center py-20 text-orange-400 font-bold text-xl">Failed to load categories.</div>
             ) : (
-                <div className="grid grid-cols-5 gap-4 py-10">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 py-10">
                     {categories.map((category) => (
                         <div
                             key={category._id}

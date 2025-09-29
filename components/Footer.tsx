@@ -11,30 +11,30 @@ const Footer = () => {
   const [newsletterSuccess, setNewsletterSuccess] = useState("");
 
   return (
-    <footer className="w-full bg-orange-100 text-gray-800 py-10 px-4 mt-16">
+    <footer className="w-full bg-orange-100 text-gray-800 py-8 sm:py-10 px-4 sm:px-8 mt-16">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-16">
         {/* Logo, Brand, and Contact Info */}
-        <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[180px]">
+        <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[140px] sm:min-w-[180px]">
           <Image src="/logo.png" alt="Company Logo" width={56} height={56} className="mb-2" />
           {/* Contact Info */}
           <div className="flex flex-col items-center md:items-start gap-1 mt-2">
             <h4 className="font-semibold text-orange-500 mb-1">Contact Us</h4>
             <div className="flex flex-row items-center gap-2 flex-wrap">
               <IconMail size={30} className="text-white bg-orange-500 p-1 rounded-md" />
-              <span className="text-sm"><a href="mailto:support@bzzco.com" className="hover:text-orange-500 transition">support@bzzco.com</a></span>
+              <span className="text-xs sm:text-sm"><a href="mailto:support@bzzco.com" className="hover:text-orange-500 transition">support@bzzco.com</a></span>
             </div>
             <div className="flex flex-row items-center gap-2 flex-wrap">
               <IconPhone size={30} className="text-white bg-orange-500 p-1 rounded-md" />
-              <span className="text-sm"><a href="tel:+1234567890" className="hover:text-orange-500 transition">+1 234 567 890</a></span>
+              <span className="text-xs sm:text-sm"><a href="tel:+1234567890" className="hover:text-orange-500 transition">+1 234 567 890</a></span>
             </div>
             <div className="flex flex-row items-center gap-2">
               <IconMapPin size={30} className="text-white bg-orange-500 p-1 rounded-md" />
-              <span className="text-sm">Poortland 146, 1046BD Amsterdam</span>
+              <span className="text-xs sm:text-sm">Poortland 146, 1046BD Amsterdam</span>
             </div>
           </div>
         </div>
         {/* Company Links */}
-        <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[160px]">
+        <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[120px] sm:min-w-[160px]">
           <h4 className="font-semibold mb-2 text-orange-500">Company</h4>
           <ul className="space-y-1">
             <li><a href="#" className="hover:text-orange-500 transition">About Us</a></li>
@@ -43,7 +43,7 @@ const Footer = () => {
           </ul>
         </div>
         {/* Support Links */}
-        <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[160px]">
+        <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[120px] sm:min-w-[160px]">
           <h4 className="font-semibold mb-2 text-orange-500">Support</h4>
           <ul className="space-y-1">
             <li><a href="#" className="hover:text-orange-500 transition">Help Center</a></li>
@@ -52,7 +52,7 @@ const Footer = () => {
           </ul>
         </div>
         {/* Legal Links */}
-        <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[160px]">
+        <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[120px] sm:min-w-[160px]">
           <h4 className="font-semibold mb-2 text-orange-500">Legal</h4>
           <ul className="space-y-1">
             <li><a href="#" className="hover:text-orange-500 transition">Privacy Policy</a></li>

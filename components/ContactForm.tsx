@@ -39,31 +39,31 @@ const ContactForm = () => {
     };
 
     return (
-        <div className='flex justify-center items-center min-h-screen gap-10'>
+        <div className="flex flex-col md:flex-row justify-center items-center min-h-screen gap-6 md:gap-10 px-4 sm:px-8">
             {/* Contact Info Card */}
-            <div className='bg-black bg-opacity-70 text-white p-10 rounded-lg w-[600px] max-w-md h-[400px] relative overflow-hidden flex-shrink-0'>
+            <div className='bg-black bg-opacity-70 text-white p-6 sm:p-10 rounded-lg w-full md:w-[600px] max-w-md h-[400px] relative overflow-hidden flex-shrink-0'>
                 <div className='gap-4'>
-                    <h1 className='text-4xl font-bold mb-2'>Contact Information</h1>
-                    <p>Say something to start a live chat!</p>
+                    <h1 className='text-3xl sm:text-4xl font-bold mb-2'>Contact Information</h1>
+                    <p className='text-sm sm:text-base'>Say something to start a live chat!</p>
                 </div>
-                <div className='mt-20'>
-                    <div className='my-8 flex flex-row items-start gap-4'>
+                <div className='mt-10 sm:mt-20'>
+                    <div className='my-6 sm:my-8 flex flex-row items-start gap-4'>
                         <div className='flex items-center justify-center bg-white p-2 rounded-lg text-black mt-1'>
                             <span className='flex items-center justify-center h-full w-full'>
                                 <IconLocation size={20} />
                             </span>
                         </div>
-                        <span><strong>Netherlands Office:</strong> Poortland 146, 1046BD Amsterdam, Netherlands</span>
+                        <span className='text-sm sm:text-base'><strong>Netherlands Office:</strong> Poortland 146, 1046BD Amsterdam, Netherlands</span>
                     </div>
                 </div>
                 <div className='mt-1'>
-                    <div className='my-8 flex flex-row items-start gap-4'>
+                    <div className='my-6 sm:my-8 flex flex-row items-start gap-4'>
                         <div className='flex items-center justify-center bg-white p-2 rounded-lg text-black mt-1'>
                             <span className='flex items-center justify-center h-full w-full'>
                                 <IconLocation size={20} />
                             </span>
                         </div>
-                        <span><strong>Morocco Office:</strong> Av Abou Bakr El Kadiri, Résidences PANORAMA, Imm 11, Apt 7, Etage 3, Casablanca 20500, Morocco</span>
+                        <span className='text-sm sm:text-base'><strong>Morocco Office:</strong> Av Abou Bakr El Kadiri, Résidences PANORAMA, Imm 11, Apt 7, Etage 3, Casablanca 20500, Morocco</span>
                     </div>
                 </div>
                 {/* Decorative circles */}
@@ -73,8 +73,8 @@ const ContactForm = () => {
             </div>
 
             {/* Contact Form Card */}
-            <div className='flex flex-col items-center justify-center w-[420px] max-w-md'>
-                <form className='p-10 rounded-lg w-full mt-0' onSubmit={handleSubmit}>
+            <div className='flex flex-col items-center justify-center w-full md:w-[420px] max-w-md'>
+                <form className='p-6 sm:p-10 rounded-lg w-full mt-0' onSubmit={handleSubmit}>
                     <div className='mb-4'>
                         <label className='block text-gray-700 font-semibold mb-2' htmlFor='name'>Name</label>
                         <input className='w-full px-3 py-2 border-b border-black rounded-lg focus:outline-none focus:border-orange-500' type='text' id='name' name='name' placeholder='Your Name' value={form.name} onChange={handleChange} required />

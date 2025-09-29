@@ -21,7 +21,7 @@ export default function CartDrawer() {
       />
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 w-96 max-w-full h-full bg-white shadow-lg z-50 transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed top-0 right-0 w-full sm:w-96 max-w-full h-full bg-white shadow-lg z-50 transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
         <button className="absolute top-4 right-4 text-2xl" onClick={() => setIsOpen(false)}>✕</button>
         <h2 className="text-xl font-bold p-4 border-b border-orange-100">Your Cart</h2>

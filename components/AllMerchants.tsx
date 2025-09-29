@@ -36,13 +36,13 @@ const AllMerchants = () => {
     }, []);
 
     return (
-        <div className='px-[15vw] py-15'>
-            <div className="w-full flex flex-row items-center justify-between">
+        <div className='px-4 sm:px-8 md:px-[15vw] py-8 sm:py-12 md:py-15'>
+            <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex flex-col items-center">
-                    <h2 className="text-2xl font-bold">
-                        Top <span className="text-orange-500">Merchants</span>
+                    <h2 className="text-xl sm:text-2xl font-bold">
+                        All <span className="text-orange-500">Merchants</span>
                     </h2>
-                    <div className="w-44 h-1 bg-orange-500 rounded-none" />
+                    <div className="w-24 sm:w-44 h-1 bg-orange-500 rounded-none" />
                 </div>
             </div>
             <div className='pt-10 grid grid-cols-1 gap-y-12'>

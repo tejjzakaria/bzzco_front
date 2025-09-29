@@ -33,19 +33,19 @@ const TopMerchants = () => {
     }, []);
 
     return (
-        <div className='px-[15vw] py-15'>
-            <div className="w-full flex flex-row items-center justify-between">
+        <div className='px-4 sm:px-8 md:px-[15vw] py-8 sm:py-12 md:py-15'>
+            <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex flex-col items-center">
-                    <h2 className="text-2xl font-bold">
+                    <h2 className="text-xl sm:text-2xl font-bold">
                         Top <span className="text-orange-500">Merchants</span>
                     </h2>
-                    <div className="w-44 h-1 bg-orange-500 rounded-none" />
+                    <div className="w-24 sm:w-44 h-1 bg-orange-500 rounded-none" />
                 </div>
                 <div className='flex flex-row items-center gap-2 text-orange-500 font-semibold cursor-pointer ml-8'>
                     <Link href="/merchants" className="text-orange-500 cursor-pointer">View all</Link><IconArrowRight />
                 </div>
             </div>
-            <div className='pt-10 flex flex-row gap-8'>
+            <div className='pt-10 flex flex-row gap-8 flex-wrap justify-center'>
               {loading ? (
                 <div className="w-full flex justify-center items-center py-20 text-orange-500 font-bold text-xl">Loading merchants...</div>
               ) : error ? (
@@ -56,7 +56,7 @@ const TopMerchants = () => {
                   return (
                     <div
                       key={merchant._id}
-                      className={`w-84 h-46 ${color.bg} rounded-xl relative overflow-hidden shadow-md flex flex-col justify-between p-4 text-white`}
+                      className={`w-84 h-46 ${color.bg} rounded-xl relative overflow-hidden shadow-md flex flex-col justify-between p-4 text-white m-4`}
                     >
                       {/* Tag */}
                       <span className="bg-black text-white text-xs px-3 py-1 rounded-md w-fit">
