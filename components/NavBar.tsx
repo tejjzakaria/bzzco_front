@@ -36,10 +36,10 @@ export function NavBar() {
             name: "Sell Material",
             link: "/sell-material",
         },
-        {
-            name: "Ai Calculator",
-            link: "/ai-calculator",
-        },
+        //{
+        //    name: "Ai Calculator",
+        //    link: "/ai-calculator",
+        //},
     ];
     const navItems2 = [
         
@@ -106,9 +106,10 @@ export function NavBar() {
                                                 </span>
                                             )}
                                         </button>
+                                        {/* User Icon / Profile Link 
                                         <div className="p-2 border border-orange-500 rounded-lg mr-1 hover:bg-orange-100 cursor-pointer">
                                             <a href="/login"><User2Icon size='22' color="#f37321" /></a>
-                                        </div>
+                                        </div>*/}
                                     </div>
                                 </div>
                             </div>
