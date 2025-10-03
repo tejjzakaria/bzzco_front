@@ -12,12 +12,13 @@ import {
 } from "./ui/resizable-navbar";
 import { useState, useEffect } from "react";
 import Select from "react-select";
-import { PlaceholdersAndVanishInput } from "./ui/placeholders-and-vanish-input_2";
 import { SearchBarInput } from "./SearchBar";
 import { ShoppingBagIcon, User2Icon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCart } from "./CartContext";
 import TopBar from "./TopBar";
+import { PlaceholdersAndVanishInput } from "./ui/placeholders-and-vanish-input_2";
+import { useRouter } from "next/navigation";
 import type { CartItem } from './types';
 
 export function NavBar() {
@@ -67,9 +68,8 @@ export function NavBar() {
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
-
-    // Sticky/fixed navbar for always visible navigation
     const { setIsOpen, items } = useCart();
+    const router = useRouter();
     const cartCount = items.reduce((sum: number, item: CartItem) => sum + (item.quantity || 1), 0);
     const [hasMounted, setHasMounted] = useState(false);
     // Ensure cartCount badge only renders on client
@@ -91,7 +91,15 @@ export function NavBar() {
                                         <PlaceholdersAndVanishInput
                                             placeholders={searchPlaceholders}
                                             onChange={() => { }}
-                                            onSubmit={() => { }}
+                                            onSubmit={(e) => {
+                                                e.preventDefault();
+                                                // Get the value from the input element inside the form
+                                                const input = e.currentTarget.querySelector('input');
+                                                const value = input ? input.value : '';
+                                                if (value && value.trim()) {
+                                                    router.push(`/shop?search=${encodeURIComponent(value.trim())}`);
+                                                }
+                                            }}
                                         />
                                     </div>
                                     <div className="flex items-center justify-end min-w-[180px] gap-2">
