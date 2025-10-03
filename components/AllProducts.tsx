@@ -54,31 +54,37 @@ const AllProducts = () => {
         fetchProducts();
     }, []);
 
-    // Replace single select logic with multi-select for categories
+    // Multi-select for categories with 'All Categories' logic
     const handleCategoryClick = (cat: string) => {
-        if (cat === "All") {
-            setSelectedCategories(["All"]);
+        if (cat === "All Categories") {
+            setSelectedCategories(["All Categories"]);
         } else {
             setSelectedCategories((prev) => {
-                const filtered = prev.filter((c) => c !== "All");
+                // If 'All Categories' is selected, remove it
+                const filtered = prev.filter((c) => c !== "All Categories");
                 if (filtered.includes(cat)) {
-                    return filtered.length === 1 ? ["All"] : filtered.filter((c) => c !== cat);
+                    // Deselect category
+                    return filtered.length === 1 ? ["All Categories"] : filtered.filter((c) => c !== cat);
                 } else {
+                    // Add category
                     return [...filtered, cat];
                 }
             });
         }
     };
-    // Multi-select for merchants
+    // Multi-select for merchants with 'All Merchants' logic
     const handleMerchantClick = (merchant: string) => {
         if (merchant === "All Merchants") {
             setSelectedMerchants(["All Merchants"]);
         } else {
             setSelectedMerchants((prev) => {
+                // If 'All Merchants' is selected, remove it
                 const filtered = prev.filter((m) => m !== "All Merchants");
                 if (filtered.includes(merchant)) {
+                    // Deselect merchant
                     return filtered.length === 1 ? ["All Merchants"] : filtered.filter((m) => m !== merchant);
                 } else {
+                    // Add merchant
                     return [...filtered, merchant];
                 }
             });
