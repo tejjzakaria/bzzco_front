@@ -1,10 +1,13 @@
+'use client';
 import React from 'react'
 import { IconLocation } from '@tabler/icons-react'
-
+import { useRouter } from 'next/navigation'
 
 const RegisterSellerForm = () => {
+    const router = useRouter();
     return (
         <div className='flex flex-col md:flex-row justify-center items-center min-h-screen gap-6 md:gap-10 px-4 sm:px-8'>
+
             {/* Contact Info Card */}
             <div className='bg-black bg-opacity-70 text-white p-6 sm:p-10 rounded-lg w-full md:w-[400px] max-w-md h-[400px] relative overflow-hidden flex-shrink-0 mb-6 md:mb-0'>
                 <div className='gap-4'>
@@ -59,8 +62,15 @@ const RegisterSellerForm = () => {
                         <label className='block text-gray-700 font-semibold mb-2' htmlFor='email'>Address</label>
                         <textarea className='w-full px-3 py-2 border-b border-black rounded-lg focus:outline-none focus:border-orange-500' id='address' name='address' placeholder='Your Address'></textarea>
                     </div>
-                    
 
+
+                    <button
+                        type="button"
+                        onClick={() => router.back()}
+                        className="absolute top-4 left-4 md:static md:self-start mb-4 mr-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-lg transition z-20"
+                    >
+                        &larr; Go Back
+                    </button>
                     <button className='w-full md:w-[200px] bg-black hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-lg transition' type='submit'>Register</button>
                 </form>
             </div>

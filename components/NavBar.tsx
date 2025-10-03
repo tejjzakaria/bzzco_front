@@ -34,7 +34,8 @@ export function NavBar() {
         },
         {
             name: "Sell Material",
-            link: "/sell-material",
+            link: "https://bzzco-sell-material-hub.vercel.app/",
+            external: true
         },
         //{
         //    name: "Ai Calculator",
@@ -119,15 +120,29 @@ export function NavBar() {
                                         <ul className="flex flex-row gap-3 py-2 px-0 mb-3 w-full justify-start">
                                             {navItems1.map((item, idx) => (
                                                 <li key={`desktop-link-${idx}`}>
-                                                    <a
-                                                        href={item.link}
-                                                        className={`text-neutral-700 dark:text-neutral-200 font-medium px-4 py-2 rounded-sm transition-colors
-                                                            ${pathname === item.link ? 'bg-orange-900 text-white dark:bg-zinc-800' : ''}
-                                                            hover:text-white hover:bg-orange-900 dark:hover:bg-zinc-800`
-                                                        }
-                                                    >
-                                                        {item.name}
-                                                    </a>
+                                                    {item.external ? (
+                                                        <a
+                                                            href={item.link}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className={`text-neutral-700 dark:text-neutral-200 font-medium px-4 py-2 rounded-sm transition-colors
+                                                                ${pathname === item.link ? 'bg-orange-900 text-white dark:bg-zinc-800' : ''}
+                                                                hover:text-white hover:bg-orange-900 dark:hover:bg-zinc-800`
+                                                            }
+                                                        >
+                                                            {item.name}
+                                                        </a>
+                                                    ) : (
+                                                        <a
+                                                            href={item.link}
+                                                            className={`text-neutral-700 dark:text-neutral-200 font-medium px-4 py-2 rounded-sm transition-colors
+                                                                ${pathname === item.link ? 'bg-orange-900 text-white dark:bg-zinc-800' : ''}
+                                                                hover:text-white hover:bg-orange-900 dark:hover:bg-zinc-800`
+                                                            }
+                                                        >
+                                                            {item.name}
+                                                        </a>
+                                                    )}
                                                 </li>
                                             ))}
                                         </ul>
@@ -171,14 +186,27 @@ export function NavBar() {
                             onClose={() => setIsMobileMenuOpen(false)}
                         >
                             {navItems1.map((item, idx) => (
-                                <a
-                                    key={`mobile-link-${idx}`}
-                                    href={item.link}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    className="relative text-neutral-600 dark:text-neutral-300"
-                                >
-                                    <span className="block">{item.name}</span>
-                                </a>
+                                item.external ? (
+                                    <a
+                                        key={`mobile-link-${idx}`}
+                                        href={item.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="relative text-neutral-600 dark:text-neutral-300"
+                                    >
+                                        <span className="block">{item.name}</span>
+                                    </a>
+                                ) : (
+                                    <a
+                                        key={`mobile-link-${idx}`}
+                                        href={item.link}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="relative text-neutral-600 dark:text-neutral-300"
+                                    >
+                                        <span className="block">{item.name}</span>
+                                    </a>
+                                )
                             ))}
                             <div className="flex w-full flex-col gap-4">
                                 <NavbarButton

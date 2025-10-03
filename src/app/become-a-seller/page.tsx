@@ -7,9 +7,7 @@ import Footer from '../../../components/Footer'
 const page = () => {
   return (
     <Layout>
-      <NavBar/>
       <RegisterSellerForm/>
-      <Footer/>
     </Layout>
   )
 }
