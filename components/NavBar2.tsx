@@ -109,7 +109,9 @@ export function NavBar() {
     const cartCount = items.reduce((sum: number, item: CartItem) => sum + (item.quantity || 1), 0);
     return (
         <div>
+            {/* <TopBar /> 
             <TopBar />
+            */}
             <div className="sticky top-0 left-0 w-full z-50 bg-white dark:bg-zinc-900 shadow-md">
                 <Navbar>
                     {/* Desktop Navigation */}

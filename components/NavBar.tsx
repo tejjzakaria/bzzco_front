@@ -75,7 +75,7 @@ export function NavBar() {
     useEffect(() => { setHasMounted(true); }, []);
     return (
         <div>
-            <TopBar />
+            {/* <TopBar /> */}
             <div className="sticky top-0 left-0 w-full z-50 bg-white dark:bg-zinc-900 shadow-md">
                 <Navbar>
                     {/* Desktop Navigation */}
