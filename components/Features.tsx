@@ -4,10 +4,10 @@ import React from 'react'
 
 const Features = () => {
     return (
-        <div className='my-20 flex flex-col items-center justify-center gap-2 px-4 sm:px-8'>
-            <h2 className='text-2xl sm:text-3xl font-bold'>Why choose us?</h2>
-            <p className='text-base sm:text-lg text-center'>Learn more about our process.</p>
-            <div className='flex flex-col md:flex-row items-center justify-center gap-8 md:gap-20 my-10 w-full max-w-5xl'>
+        <div className='py-12 md:py-20 px-4 sm:px-8 flex flex-col items-center justify-center gap-6'>
+            <h2 className='text-2xl sm:text-3xl font-bold mb-2'>Why choose us?</h2>
+            <p className='text-base sm:text-lg text-center mb-4'>Learn more about our process.</p>
+            <div className='flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 w-full max-w-5xl'>
                 <div className='flex flex-row items-center justify-center gap-4 mb-8 md:mb-0'>
                     <div className='flex flex-col items-center justify-center p-4 rounded-full bg-black'>
                         <IconTruckDelivery size={40} className='text-white' />
