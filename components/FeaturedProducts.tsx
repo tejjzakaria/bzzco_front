@@ -56,6 +56,8 @@ const FeaturedProducts = () => {
                 <div className="w-full flex justify-center items-center py-20 text-orange-500 font-bold text-xl">Loading products...</div>
             ) : error ? (
                 <div className="w-full flex justify-center items-center py-20 text-orange-400 font-bold text-xl">Failed to load products.</div>
+            ) : products.length === 0 ? (
+                <div className="w-full flex justify-center items-center py-20 text-orange-400 font-bold text-xl">No featured products available.</div>
             ) : (
             <div className="flex flex-row gap-8 my-10 flex-wrap justify-center">
                 {products.map((product, idx) => (
