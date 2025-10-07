@@ -35,7 +35,7 @@ export function NavBar() {
         },
         {
             name: "Sell Material",
-            link: "https://bzzco-sell-material-hub.vercel.app/",
+            link: "https://seller.bzzco.com/",
             external: true
         },
         //{
