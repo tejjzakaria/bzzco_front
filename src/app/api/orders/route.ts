@@ -8,8 +8,8 @@ export async function POST(req: Request) {
   try {
     const order = await Order.create(data);
     return NextResponse.json(order, { status: 201 });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 400 });
+  } catch (err) {
+    return NextResponse.json({ error: (err as Error).message }, { status: 400 });
   }
 }
 
@@ -18,7 +18,7 @@ export async function GET() {
   try {
     const orders = await Order.find().sort({ createdAt: -1 });
     return NextResponse.json(orders);
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ error: (err as Error).message }, { status: 500 });
   }
 }

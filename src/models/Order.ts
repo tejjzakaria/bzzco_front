@@ -1,4 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
+
+export interface OrderDocument extends mongoose.Document {
+    customer_type: 'registered' | 'guest';
+}
 
 const orderSchema = new mongoose.Schema({
     order_number: {
@@ -14,20 +18,20 @@ const orderSchema = new mongoose.Schema({
     customer_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Customers',
-        required: function(this: any) {
+        required: function(this: OrderDocument) {
             return this.customer_type === 'registered';
         },
     },
     // Guest customer fields
     guest_name: {
         type: String,
-        required: function(this: any) {
+        required: function(this: OrderDocument) {
             return this.customer_type === 'guest';
         },
     },
     guest_email: {
         type: String,
-        required: function(this: any) {
+        required: function(this: OrderDocument) {
             return this.customer_type === 'guest';
         },
     },
