@@ -8,6 +8,7 @@ import { IconUser } from "@tabler/icons-react";
 import Image from 'next/image';
 import type { CartItem } from './types';
 import type { StylesConfig, GroupBase, ControlProps, OptionProps, SingleValueProps, MenuProps, CSSObjectWithLabel } from 'react-select';
+import { useRouter } from 'next/navigation';
 
 const customSelectStyles: StylesConfig<{ value: string; label: string }, false> = {
     control: (provided: CSSObjectWithLabel, state: ControlProps<{ value: string; label: string }, false, GroupBase<{ value: string; label: string }>>) => ({
@@ -41,9 +42,11 @@ const customSelectStyles: StylesConfig<{ value: string; label: string }, false> 
 };
 
 export default function CheckoutPage() {
-    const { items } = useCart();
+    const { items, setItems } = useCart();
     const [cart, setCart] = useState<CartItem[]>(items);
     const [selectedCountry, setSelectedCountry] = useState<{ value: string; label: string } | null>(null);
+    const [paymentMethod, setPaymentMethod] = useState<'card' | 'paypal' | 'apple'>('card');
+    const router = useRouter();
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -64,26 +67,88 @@ export default function CheckoutPage() {
                         </div>
                         <h1 className="font-semibold text-md">User Information</h1>
                     </div>
-                    <form className="space-y-4">
+                    <form className="space-y-4" onSubmit={async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    // Collect form data
+    const firstName = (form.querySelector('input[placeholder="Your First Name"]') as HTMLInputElement)?.value || '';
+    const lastName = (form.querySelector('input[placeholder="Your Last Name"]') as HTMLInputElement)?.value || '';
+    const email = (form.querySelector('input[type="email"]') as HTMLInputElement)?.value || '';
+    const phone = (form.querySelector('input[placeholder^="+31"]') as HTMLInputElement)?.value || '';
+    const postalCode = (form.querySelector('input[placeholder="Postal code"]') as HTMLInputElement)?.value.trim() || '';
+    const address = (form.querySelector('textarea[name="address"]') as HTMLTextAreaElement)?.value.trim() || '';
+    const city = (form.querySelector('input[placeholder="City"]') as HTMLInputElement)?.value.trim() || '';
+    const country = selectedCountry?.label?.trim() || '';
+    if (!address || !city || !postalCode || !country) {
+        alert('Please fill in all address fields.');
+        return;
+    }
+    // Prepare order payload (guest checkout)
+    const orderPayload = {
+        order_number: `BZZ-${Date.now()}`,
+        customer_type: 'guest',
+        guest_name: `${firstName} ${lastName}`.trim(),
+        guest_email: email,
+        guest_phone: phone,
+        products: cart.map(item => ({
+            product_id: item._id,
+            quantity: item.quantity,
+            unit_price: item.price,
+            total_price: item.price * item.quantity
+        })),
+        total_price: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+        status: 'Pending',
+        shipping_address: {
+            street: address,
+            city: city,
+            postal_code: postalCode,
+            country: country
+        },
+        billing_address: {
+            street: address,
+            city: city,
+            postal_code: postalCode,
+            country: country
+        },
+        payment_method: paymentMethod,
+        payment_status: 'Unpaid',
+    };
+    try {
+        const res = await fetch('/api/orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(orderPayload)
+        });
+        if (res.ok) {
+            setItems([]); // clear cart
+            localStorage.removeItem('cart_items');
+            router.push(`/order-confirmation?order=${orderPayload.order_number}`);
+        } else {
+            alert('Order failed. Please try again.');
+        }
+    } catch (err) {
+        alert('Order failed. Please try again.');
+    }
+}}>
                         <div className="flex items-center justify-between gap-2">
                             <div className="w-1/2">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                                <input type="text" className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="Your First Name" required />
+                                <input type="text" className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="Your First Name" required defaultValue="John" />
                             </div>
                             <div className="w-1/2">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                                <input type="text" className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="Your Last Name" required />
+                                <input type="text" className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="Your Last Name" required defaultValue="Doe" />
                             </div>
 
                         </div>
                         <div className="flex items-center justify-between gap-2">
                             <div className="w-1/2">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                                <input type="email" className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="you@email.com" required />
+                                <input type="email" className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="you@email.com" required defaultValue="john.doe@example.com" />
                             </div>
                             <div className="w-1/2">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                                <input type="text" className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="+31 6 00 00 00 00" required />
+                                <input type="text" className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="+31 6 00 00 00 00" required defaultValue="+31 6 12 34 56 78" />
                             </div>
                         </div>
 
@@ -101,13 +166,19 @@ export default function CheckoutPage() {
                                 />
                             </div>
                             <div className="w-1/2">
+                                <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+                                <input type="text" className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="City" required defaultValue="Amsterdam" />
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between gap-2">
+                            <div className="w-1/2">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Postal code</label>
-                                <input type="text" className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="Postal code" required />
+                                <input type="text" className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="Postal code" required defaultValue="1234 AB" />
                             </div>
                         </div>
                         <div className="">
                             <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                            <textarea name="address" id="address" className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="Enter your address" required></textarea>
+                            <textarea name="address" id="address" className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="Enter your address" required defaultValue="123 Main St, Amsterdam" ></textarea>
                         </div>
                         <div className="flex items-center mb-4 gap-2 text-orange-600">
                             <div className="bg-orange-500 rounded-md text-white flex items-center justify-center w-8 h-8">
@@ -116,8 +187,68 @@ export default function CheckoutPage() {
                             <h1 className="font-semibold text-md">Payment Details</h1>
                         </div>
 
-                        {/* Payment Details (stripe integration) */}
-
+                        {/* Payment Method Tabs */}
+                        <div className="mb-4">
+                            <div className="flex gap-2 mb-4">
+                                <button
+                                    type="button"
+                                    className={`flex-1 py-2 rounded-lg font-semibold border transition-all duration-150 ${paymentMethod === 'card' ? 'bg-orange-500 text-white border-orange-500' : 'bg-orange-100 text-orange-600 border-orange-200 hover:bg-orange-200'}`}
+                                    onClick={() => setPaymentMethod('card')}
+                                >
+                                    Credit/Debit Card
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`flex-1 py-2 rounded-lg font-semibold border transition-all duration-150 ${paymentMethod === 'paypal' ? 'bg-orange-500 text-white border-orange-500' : 'bg-orange-100 text-orange-600 border-orange-200 hover:bg-orange-200'}`}
+                                    onClick={() => setPaymentMethod('paypal')}
+                                >
+                                    PayPal
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`flex-1 py-2 rounded-lg font-semibold border transition-all duration-150 ${paymentMethod === 'apple' ? 'bg-orange-500 text-white border-orange-500' : 'bg-orange-100 text-orange-600 border-orange-200 hover:bg-orange-200'}`}
+                                    onClick={() => setPaymentMethod('apple')}
+                                >
+                                    Apple Pay
+                                </button>
+                            </div>
+                            {/* Payment Method Forms */}
+                            {paymentMethod === 'card' && (
+                                <div className="space-y-3">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+                                        <input type="text" inputMode="numeric" pattern="[0-9 ]*" maxLength={19} className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="1234 5678 9012 3456" required defaultValue="4242 4242 4242 4242" />
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <div className="w-1/2">
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Expiry</label>
+                                            <input type="text" inputMode="numeric" pattern="[0-9]{2}/[0-9]{2}" maxLength={5} className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="MM/YY" required defaultValue="12/29" />
+                                        </div>
+                                        <div className="w-1/2">
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">CVC</label>
+                                            <input type="text" inputMode="numeric" pattern="[0-9]*" maxLength={4} className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="CVC" required defaultValue="123" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Name on Card</label>
+                                        <input type="text" className="w-full border border-orange-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all" placeholder="Cardholder Name" required defaultValue="John Doe" />
+                                    </div>
+                                </div>
+                            )}
+                            {paymentMethod === 'paypal' && (
+                                <div className="flex flex-col items-center gap-4 py-4">
+                                    <img src="/paypal.svg" alt="PayPal" className="h-8" />
+                                    <p className="text-gray-600">You will be redirected to PayPal to complete your purchase.</p>
+                                </div>
+                            )}
+                            {paymentMethod === 'apple' && (
+                                <div className="flex flex-col items-center gap-4 py-4">
+                                    <img src="/apple-pay.svg" alt="Apple Pay" className="h-8" />
+                                    <p className="text-gray-600">You will be prompted to pay with Apple Pay on supported devices.</p>
+                                </div>
+                            )}
+                        </div>
+                        {/* End Payment Method Tabs */}
                         <button type="submit" className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-4 rounded-xl text-lg transition-all duration-200 mt-4">Complete Purchase</button>
                     </form>
 

@@ -1,7 +1,12 @@
+'use client';
+
 import React from 'react'
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 const OrderConfirmation = () => {
+  const searchParams = useSearchParams();
+  const orderNumber = searchParams.get('order') || '';
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] py-16 px-4">
       <div className="bg-white rounded-2xl shadow-lg p-10 max-w-lg w-full flex flex-col items-center">
@@ -14,7 +19,7 @@ const OrderConfirmation = () => {
         <div className="w-full flex flex-col gap-2 mb-6">
           <div className="flex items-center justify-between text-sm text-gray-600">
             <span>Order Number:</span>
-            <span className="font-semibold">#123456</span>
+            <span className="font-semibold">{orderNumber ? `#${orderNumber}` : '...'}</span>
           </div>
           <div className="flex items-center justify-between text-sm text-gray-600">
             <span>Estimated Delivery:</span>
