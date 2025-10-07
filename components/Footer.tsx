@@ -25,11 +25,11 @@ const Footer = () => {
             </div>
             <div className="flex flex-row items-center gap-2 flex-wrap">
               <IconPhone size={30} className="text-white bg-orange-500 p-1 rounded-md" />
-              <span className="text-xs sm:text-sm"><a href="tel:+1234567890" className="hover:text-orange-500 transition">+1 234 567 890</a></span>
+              <span className="text-xs sm:text-sm"><a href="tel:+31684385566" className="hover:text-orange-500 transition">+31 6 84385566</a></span>
             </div>
             <div className="flex flex-row items-center gap-2">
               <IconMapPin size={30} className="text-white bg-orange-500 p-1 rounded-md" />
-              <span className="text-xs sm:text-sm">Poortland 146, 1046BD Amsterdam</span>
+              <span className="text-xs sm:text-sm">Mercuriusplein 1,<br></br>2340 Hoofddorp</span>
             </div>
           </div>
         </div>

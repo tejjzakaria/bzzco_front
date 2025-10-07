@@ -54,7 +54,7 @@ export function NavBar() {
             link: "/contact",
         },
         {
-            name: "Work with us",
+            name: "Careers",
             link: "/work-with-us",
         },
     ];

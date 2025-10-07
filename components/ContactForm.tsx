@@ -47,25 +47,26 @@ const ContactForm = () => {
                     <p className='text-sm sm:text-base'>Say something to start a live chat!</p>
                 </div>
                 <div className='mt-10 sm:mt-20'>
-                    <div className='my-6 sm:my-8 flex flex-row items-start gap-4'>
-                        <div className='flex items-center justify-center bg-white p-2 rounded-lg text-black mt-1'>
-                            <span className='flex items-center justify-center h-full w-full'>
+                          <div className='my-6 sm:my-8 flex flex-row items-start gap-4'>
+                            <div className='flex items-center justify-center bg-white p-2 rounded-lg text-black mt-1'>
+                              <span className='flex items-center justify-center h-full w-full'>
                                 <IconLocation size={20} />
-                            </span>
+                              </span>
+                            </div>
+                            <span className='text-sm sm:text-base'><strong>Netherlands Office:</strong> Mercuriusplein 1,
+                              2340 Hoofddorp, Netherlands</span>
+                          </div>
                         </div>
-                        <span className='text-sm sm:text-base'><strong>Netherlands Office:</strong> Poortland 146, 1046BD Amsterdam, Netherlands</span>
-                    </div>
-                </div>
-                <div className='mt-1'>
-                    <div className='my-6 sm:my-8 flex flex-row items-start gap-4'>
-                        <div className='flex items-center justify-center bg-white p-2 rounded-lg text-black mt-1'>
-                            <span className='flex items-center justify-center h-full w-full'>
+                        <div className='mt-1'>
+                          <div className='my-6 sm:my-8 flex flex-row items-start gap-4'>
+                            <div className='flex items-center justify-center bg-white p-2 rounded-lg text-black mt-1'>
+                              <span className='flex items-center justify-center h-full w-full'>
                                 <IconLocation size={20} />
-                            </span>
+                              </span>
+                            </div>
+                            <span className='text-sm sm:text-base'><strong>Morocco Office:</strong> We are preparing to welcome you very soon in Morocco.</span>
+                          </div>
                         </div>
-                        <span className='text-sm sm:text-base'><strong>Morocco Office:</strong> Av Abou Bakr El Kadiri, Résidences PANORAMA, Imm 11, Apt 7, Etage 3, Casablanca 20500, Morocco</span>
-                    </div>
-                </div>
                 {/* Decorative circles */}
                 <div className='absolute -bottom-10 -right-10 w-32 h-32 border-2 border-blue-500 rounded-full opacity-50'></div>
                 <div className='absolute -bottom-16 -right-16 w-40 h-40 border border-blue-400 rounded-full opacity-30'></div>
