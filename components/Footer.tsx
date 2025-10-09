@@ -2,13 +2,37 @@
 
 import { IconArrowRight, IconMail, IconPhone, IconMapPin } from "@tabler/icons-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+interface Page {
+  _id: string;
+  title: string;
+  slug: string;
+  pageType: string;
+  isInMenu: boolean;
+}
 
 const Footer = () => {
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterLoading, setNewsletterLoading] = useState(false);
   const [newsletterError, setNewsletterError] = useState("");
   const [newsletterSuccess, setNewsletterSuccess] = useState("");
+  const [pages, setPages] = useState<Page[]>([]);
+
+  useEffect(() => {
+    async function fetchPages() {
+      try {
+        const res = await fetch('/api/pages');
+        if (res.ok) {
+          const data = await res.json();
+          setPages(data.filter((p: Page) => p.isInMenu));
+        }
+      } catch (error) {
+        console.error('Failed to fetch pages:', error);
+      }
+    }
+    fetchPages();
+  }, []);
 
   return (
     <footer className="w-full bg-orange-100 text-gray-800 py-8 sm:py-10 px-4 sm:px-8 mt-16">
@@ -34,31 +58,50 @@ const Footer = () => {
           </div>
         </div>
         {/* Company Links */}
-        <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[120px] sm:min-w-[160px]">
-          <h4 className="font-semibold mb-2 text-orange-500">Company</h4>
-          <ul className="space-y-1">
-            <li><a href="#" className="hover:text-orange-500 transition">About Us</a></li>
-            <li><a href="#" className="hover:text-orange-500 transition">Careers</a></li>
-            <li><a href="#" className="hover:text-orange-500 transition">Blog</a></li>
-          </ul>
-        </div>
+        {pages.filter(p => p.pageType === 'general').length > 0 && (
+          <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[120px] sm:min-w-[160px]">
+            <h4 className="font-semibold mb-2 text-orange-500">Company</h4>
+            <ul className="space-y-1">
+              {pages.filter(p => p.pageType === 'general').map(page => (
+                <li key={page._id}>
+                  <a href={`/pages/${page.slug}`} className="hover:text-orange-500 transition">
+                    {page.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         {/* Support Links */}
-        <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[120px] sm:min-w-[160px]">
-          <h4 className="font-semibold mb-2 text-orange-500">Support</h4>
-          <ul className="space-y-1">
-            <li><a href="#" className="hover:text-orange-500 transition">Help Center</a></li>
-            <li><a href="#" className="hover:text-orange-500 transition">Returns</a></li>
-            <li><a href="#" className="hover:text-orange-500 transition">Shipping</a></li>
-          </ul>
-        </div>
+        {pages.filter(p => p.pageType === 'help').length > 0 && (
+          <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[120px] sm:min-w-[160px]">
+            <h4 className="font-semibold mb-2 text-orange-500">Support</h4>
+            <ul className="space-y-1">
+              {pages.filter(p => p.pageType === 'help').map(page => (
+                <li key={page._id}>
+                  <a href={`/pages/${page.slug}`} className="hover:text-orange-500 transition">
+                    {page.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         {/* Legal Links */}
-        <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[120px] sm:min-w-[160px]">
-          <h4 className="font-semibold mb-2 text-orange-500">Legal</h4>
-          <ul className="space-y-1">
-            <li><a href="#" className="hover:text-orange-500 transition">Privacy Policy</a></li>
-            <li><a href="#" className="hover:text-orange-500 transition">Terms of Service</a></li>
-          </ul>
-        </div>
+        {pages.filter(p => p.pageType === 'legal').length > 0 && (
+          <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[120px] sm:min-w-[160px]">
+            <h4 className="font-semibold mb-2 text-orange-500">Legal</h4>
+            <ul className="space-y-1">
+              {pages.filter(p => p.pageType === 'legal').map(page => (
+                <li key={page._id}>
+                  <a href={`/pages/${page.slug}`} className="hover:text-orange-500 transition">
+                    {page.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         {/* Newsletter Subscription */}
         <div className="flex flex-col items-center md:items-end gap-3 flex-1 min-w-[180px]">
           <h4 className="font-semibold text-orange-500 mb-1">Subscribe to our Newsletter</h4>
