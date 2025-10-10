@@ -2,7 +2,8 @@ import { ReactNode } from 'react'
 import CartDrawer from './CartDrawer'
 import { CartProvider } from './CartContext'
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { div } from 'motion/react-client'
+import { div } from 'motion/react-client';
+import { Analytics } from "@vercel/analytics/next"
 
 interface LayoutProps {
   children: ReactNode
@@ -13,6 +14,7 @@ export default function Layout({ children, className = '' }: LayoutProps) {
   return (
     <div>
       <SpeedInsights />
+      <Analytics/>
 
       <CartProvider>
         <CartDrawer />
