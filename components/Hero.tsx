@@ -22,7 +22,7 @@ const Hero = () => {
                     </div>
                 </div>
                 <div className='my-10 flex justify-center'>
-                    <div className='w-full max-w-7xl bg-black p-4 sm:p-8 md:p-10 rounded-lg'>
+                    <div className='w-full max-w-8xl bg-black p-4 sm:p-8 md:p-10 rounded-lg'>
                         <SearchBarInput/>
                     </div>
                 </div>
