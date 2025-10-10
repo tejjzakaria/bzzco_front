@@ -20,6 +20,7 @@ import TopBar from "./TopBar";
 import { PlaceholdersAndVanishInput } from "./ui/placeholders-and-vanish-input_2";
 import { useRouter } from "next/navigation";
 import type { CartItem } from './types';
+import { CONTAINER_PADDING } from "@/lib/styles";
 
 export function NavBar() {
     const languages = [
@@ -80,10 +81,10 @@ export function NavBar() {
             <div className="sticky top-0 left-0 w-full z-50 bg-white dark:bg-zinc-900 shadow-md">
                 <Navbar>
                     {/* Desktop Navigation */}
-                    <NavBody>
+                    <NavBody className="!max-w-none !mx-0">
                         <div className="w-full">
-                            <div className="w-full flex flex-col items-center justify-center pt-4 min-h-[50px] mb-4">
-                                <div className="flex flex-row items-center w-full max-w-7xl gap-8">
+                            <div className={`w-full flex flex-col items-center justify-center pt-4 min-h-[50px] mb-4 ${CONTAINER_PADDING}`}>
+                                <div className="flex flex-row items-center w-full gap-8">
                                     <div className="flex items-center justify-start min-w-[120px]">
                                         <NavbarLogo />
                                     </div>
@@ -122,7 +123,7 @@ export function NavBar() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-row items-center max-w-7xl justify-between">
+                            <div className={`flex flex-row items-center justify-between ${CONTAINER_PADDING}`}>
                                 <div className="flex-1">
                                     <nav className="flex items-center">
                                         <ul className="flex flex-row gap-3 py-2 px-0 mb-3 w-full justify-start">

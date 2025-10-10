@@ -3,6 +3,7 @@
 import { IconArrowRight, IconMail, IconPhone, IconMapPin } from "@tabler/icons-react";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
+import { CONTAINER_PADDING } from "@/lib/styles";
 
 interface Page {
   _id: string;
@@ -35,8 +36,8 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="w-full bg-orange-100 text-gray-800 py-8 sm:py-10 px-4 sm:px-8 mt-16">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-16">
+    <footer className="w-full bg-orange-100 text-gray-800 py-8 sm:py-10 mt-16">
+      <div className={`${CONTAINER_PADDING} flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-16`}>
         {/* Logo, Brand, and Contact Info */}
         <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[140px] sm:min-w-[180px]">
           <Image src="/logo.png" alt="Company Logo" width={56} height={56} className="mb-2" />
