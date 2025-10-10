@@ -216,22 +216,16 @@ export function NavBar() {
                                     </a>
                                 )
                             ))}
-                            <div className="flex w-full flex-col gap-4">
-                                <NavbarButton
+                            {navItems2.map((item, idx) => (
+                                <a
+                                    key={`mobile-link-2-${idx}`}
+                                    href={item.link}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    variant="primary"
-                                    className="w-full"
+                                    className="relative text-neutral-600 dark:text-neutral-300"
                                 >
-                                    Login
-                                </NavbarButton>
-                                <NavbarButton
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    variant="primary"
-                                    className="w-full"
-                                >
-                                    Book a call
-                                </NavbarButton>
-                            </div>
+                                    <span className="block">{item.name}</span>
+                                </a>
+                            ))}
                         </MobileNavMenu>
                     </MobileNav>
 
