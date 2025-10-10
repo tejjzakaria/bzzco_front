@@ -2,6 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { NavBar } from '../../../../components/NavBar';
 import Footer from '../../../../components/Footer';
 
@@ -40,7 +41,7 @@ export default function PageView() {
         } else {
           setError(true);
         }
-      } catch (e) {
+      } catch {
         setError(true);
       }
       setLoading(false);
@@ -62,9 +63,9 @@ export default function PageView() {
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">404</h1>
           <p className="text-gray-600 mb-4">Page not found</p>
-          <a href="/" className="text-orange-500 hover:text-orange-600 font-semibold">
+          <Link href="/" className="text-orange-500 hover:text-orange-600 font-semibold">
             Go back home
-          </a>
+          </Link>
         </div>
       </div>
     );
