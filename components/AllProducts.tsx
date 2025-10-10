@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import { useCart } from './CartContext';
 import Image from 'next/image';
 import type { Product, CartItem } from './types';
+import { SECTION_CONTAINER } from '@/lib/styles';
 
 const AllProducts = () => {
     const [isLiked, setIsLiked] = useState<boolean[]>([]);
@@ -131,7 +132,7 @@ const AllProducts = () => {
     const paginatedProducts = filteredProducts.slice((currentPage - 1) * PRODUCTS_PER_PAGE, currentPage * PRODUCTS_PER_PAGE);
 
     return (
-        <div className='px-2 sm:px-4 md:px-[15vw] py-8 sm:py-12 md:py-15'>
+        <div className={SECTION_CONTAINER}>
             <div className="flex flex-col md:flex-row gap-8">
                 {/* Mobile Filters Button */}
                 <div className="md:hidden mb-4">

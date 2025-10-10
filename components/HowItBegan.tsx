@@ -1,9 +1,10 @@
 import React from 'react'
 import Image from 'next/image';
+import { CONTAINER_PADDING } from '@/lib/styles';
 
 const HowItBegan = () => {
     return (
-        <div className='px-[15vw] my-10'>
+        <div className={`${CONTAINER_PADDING} my-10`}>
             <div className='relative w-full h-[250px] sm:h-[350px] md:h-[400px] rounded-lg overflow-hidden'>
                 <Image src="/construction-depot.png" alt="Construction Depot" fill style={{ objectFit: 'cover' }} />
             </div>

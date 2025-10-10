@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import type { Category } from './types';
+import { SECTION_CONTAINER } from '@/lib/styles';
 
 const AllCategories = () => {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -18,7 +19,7 @@ const AllCategories = () => {
                 if (!res.ok) throw new Error('Failed to fetch');
                 const data = await res.json();
                 setCategories(data);
-            } catch (e) {
+            } catch {
                 setError(true);
             }
             setLoading(false);
@@ -27,7 +28,7 @@ const AllCategories = () => {
     }, []);
 
     return (
-        <div className='px-4 sm:px-8 md:px-[15vw] py-8 sm:py-12 md:py-15'>
+        <div className={SECTION_CONTAINER}>
             <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex flex-col items-center">
                     <h2 className="text-xl sm:text-2xl font-bold">

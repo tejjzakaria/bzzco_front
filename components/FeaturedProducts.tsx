@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useCart } from './CartContext';
 import Image from 'next/image';
 import type { Product, CartItem } from './types';
+import { SECTION_CONTAINER } from '@/lib/styles';
 
 const FeaturedProducts = () => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -30,7 +31,7 @@ const FeaturedProducts = () => {
                 setProducts(latest);
                 setIsLiked(Array(latest.length).fill(false));
                 setSelectedImage(Array(latest.length).fill(0));
-            } catch (e) {
+            } catch {
                 setError(true);
             }
             setLoading(false);
@@ -39,7 +40,7 @@ const FeaturedProducts = () => {
     }, []);
 
     return (
-        <div className='px-[15vw] py-8'>
+        <div className={SECTION_CONTAINER}>
             <div className="w-full flex flex-row items-center justify-between">
                 <div className="flex flex-col items-center">
                     <h2 className="text-2xl font-bold">

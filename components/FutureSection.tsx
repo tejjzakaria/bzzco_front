@@ -1,9 +1,10 @@
 import React from 'react'
 import Image from 'next/image';
+import { CONTAINER_PADDING } from '@/lib/styles';
 
 const FutureSection = () => {
   return (
-    <div className='flex flex-col md:flex-row items-center justify-between px-4 sm:px-8 md:px-[15vw] gap-8 md:gap-20'>
+    <div className={`flex flex-col md:flex-row items-center justify-between ${CONTAINER_PADDING} gap-8 md:gap-20`}>
         <div className='w-full md:w-1/2'>
             <Image src="/team-engineers.png" alt="About Us" className='mt-8 rounded-xl' width={900} height={900}/>
         </div>

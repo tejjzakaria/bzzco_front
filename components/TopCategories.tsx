@@ -6,6 +6,7 @@ import { ChevronRight, Home, Bath, Hammer, Palette, Scissors } from 'lucide-reac
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { SECTION_CONTAINER } from '@/lib/styles';
 
 
 
@@ -33,7 +34,7 @@ const TopCategories = () => {
             fetchCategories();
         }, []);
     return (
-        <div className='px-4 sm:px-8 md:px-[15vw] py-8 sm:py-12 md:py-15'>
+        <div className={SECTION_CONTAINER}>
             <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex flex-col items-center">
                     <h2 className="text-xl sm:text-2xl font-bold">

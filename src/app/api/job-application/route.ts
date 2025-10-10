@@ -1,7 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '../../../lib/dbConnect';
 import JobApplication from '../../../models/JobApplication';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { protectRoute } from '@/lib/apiAuth';
+import { rateLimit, getRateLimitHeaders } from '@/lib/rateLimit';
 
 export const config = {
   api: {
@@ -18,7 +20,22 @@ const s3 = new S3Client({
 });
 const BUCKET = process.env.S3_BUCKET_NAME;
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+  // Apply protection
+  const authError = protectRoute(req, { checkOrigin: true });
+  if (authError) return authError;
+
+  // Apply very strict rate limiting for file uploads (5 requests per minute)
+  const rateLimitResult = rateLimit(req, { interval: 60000, maxRequests: 5 });
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again later.' },
+      {
+        status: 429,
+        headers: getRateLimitHeaders(rateLimitResult)
+      }
+    );
+  }
   await dbConnect();
   try {
     const formData = await req.formData();
@@ -52,7 +69,9 @@ export async function POST(req: Request) {
       phoneNumber,
       cvUrl,
     });
-    return NextResponse.json({ success: true, application });
+    return NextResponse.json({ success: true, application }, {
+      headers: getRateLimitHeaders(rateLimitResult)
+    });
   } catch (error) {
     console.error('Job application error:', error);
     return NextResponse.json({ error: 'Failed to submit application' }, { status: 500 });

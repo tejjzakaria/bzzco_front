@@ -1,9 +1,10 @@
 import React from 'react'
 import Image from 'next/image';
+import { CONTAINER_PADDING } from '@/lib/styles';
 
 const AboutBzzCo = () => {
   return (
-    <div className='flex flex-row items-center justify-between px-[15vw]'>
+    <div className={`flex flex-row items-center justify-between ${CONTAINER_PADDING}`}>
         <div className='w-1/2 mr-15'>
             <Image src="/team1.jpg" alt="About Us" className='mt-8 rounded-r-full' width={900} height={900}/>
         </div>

@@ -12,6 +12,7 @@ import { useCart } from './CartContext';
 import Image from 'next/image';
 import type { Product, CartItem } from './types';
 import { Swiper as SwiperType } from 'swiper';
+import { CONTAINER_PADDING } from '@/lib/styles';
 
 export default function SingleProduct({ id }: { id: string }) {
     const [product, setProduct] = useState<Product | null>(null);
@@ -50,7 +51,7 @@ export default function SingleProduct({ id }: { id: string }) {
     if (error || !product) return notFound();
 
     return (
-        <div className='px-[15vw]'>
+        <div className={CONTAINER_PADDING}>
             <div className="min-h-screen flex flex-col items-center justify-center bg-orange-50 py-16">
                 <div className="rounded-2xl p-8 w-full flex flex-col md:flex-row gap-12">
                     {/* Left: Images */}
