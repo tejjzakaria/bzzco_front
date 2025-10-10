@@ -8,7 +8,7 @@ const Hero = () => {
             className='h-[calc(80vh-5rem)] bg-cover bg-center text-white'
             style={{ backgroundImage: "url('/hero-img.png')" }}
         >
-            <div className={`${CONTAINER_PADDING} pt-12 sm:pt-20 h-full flex flex-col justify-center`}>
+            <div className={`${CONTAINER_PADDING} h-full flex flex-col justify-center`}>
                 <div className='flex flex-col md:flex-row items-center justify-center gap-8 max-w-6xl mx-auto w-full'>
                     <div className='w-full md:flex-1 text-center md:text-left'>
                         <h1 className='heading text-2xl sm:text-3xl md:text-4xl font-bold my-5'>Explore the building industry through our catalogue!</h1>
