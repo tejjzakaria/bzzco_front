@@ -146,7 +146,7 @@ const TeamSection = () => {
             Want to Join Our Team?
           </h3>
           <p className="text-gray-600 mb-6">
-            We're always looking for talented individuals to join our mission
+            We&apos;re always looking for talented individuals to join our mission
           </p>
           <a
             href="/work-with-us"

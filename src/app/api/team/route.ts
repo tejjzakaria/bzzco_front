@@ -29,12 +29,11 @@ export async function GET(req: NextRequest) {
     const status = searchParams.get('status');
 
     // Build query - only show active members by default for public
-    let query: { status?: string } = { status: 'active' };
-
     // Allow admin to see all statuses if they provide status param
-    if (status && ['active', 'inactive'].includes(status)) {
-      query.status = status;
-    }
+    const query: { status?: string } =
+      status && ['active', 'inactive'].includes(status)
+        ? { status }
+        : { status: 'active' };
 
     const teamMembers = await Team
       .find(query)
