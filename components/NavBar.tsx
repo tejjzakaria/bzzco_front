@@ -135,8 +135,8 @@ export function NavBar() {
                                                             target="_blank"
                                                             rel="noopener noreferrer"
                                                             className={`text-neutral-700 dark:text-neutral-200 font-medium px-4 py-2 rounded-sm transition-colors
-                                                                ${pathname === item.link ? 'bg-orange-900 text-white dark:bg-zinc-800' : ''}
-                                                                hover:text-white hover:bg-orange-900 dark:hover:bg-zinc-800`
+                                                                ${pathname === item.link ? 'bg-orange-500 text-white dark:bg-orange-500' : ''}
+                                                                hover:text-white hover:bg-orange-500 dark:hover:bg-orange-500`
                                                             }
                                                         >
                                                             {item.name}
@@ -145,8 +145,8 @@ export function NavBar() {
                                                         <a
                                                             href={item.link}
                                                             className={`text-neutral-700 dark:text-neutral-200 font-medium px-4 py-2 rounded-sm transition-colors
-                                                                ${pathname === item.link ? 'bg-orange-900 text-white dark:bg-zinc-800' : ''}
-                                                                hover:text-white hover:bg-orange-900 dark:hover:bg-zinc-800`
+                                                                ${pathname === item.link ? 'bg-orange-500 text-white dark:bg-orange-500' : ''}
+                                                                hover:text-white hover:bg-orange-500 dark:hover:bg-orange-500`
                                                             }
                                                         >
                                                             {item.name}
@@ -165,8 +165,8 @@ export function NavBar() {
                                                     <a
                                                         href={item.link}
                                                         className={`text-neutral-700 dark:text-neutral-200 font-medium px-4 py-2 rounded-sm transition-colors
-                                                            ${pathname === item.link ? 'bg-orange-900 text-white dark:bg-zinc-800' : ''}
-                                                            hover:text-white hover:bg-orange-900 dark:hover:bg-zinc-800`
+                                                            ${pathname === item.link ? 'bg-orange-500 text-white dark:bg-orange-500' : ''}
+                                                            hover:text-white hover:bg-orange-500 dark:hover:bg-orange-500`
                                                         }
                                                     >
                                                         {item.name}

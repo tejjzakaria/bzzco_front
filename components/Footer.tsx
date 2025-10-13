@@ -40,7 +40,7 @@ const Footer = () => {
       <div className={`${CONTAINER_PADDING} flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-16`}>
         {/* Logo, Brand, and Contact Info */}
         <div className="flex flex-col items-center md:items-start gap-3 flex-1 min-w-[140px] sm:min-w-[180px]">
-          <Image src="/logo.png" alt="Company Logo" width={56} height={56} className="mb-2" />
+          <Image src="/logo.png" alt="Company Logo" width={200} height={200} className="mb-2" />
           {/* Contact Info */}
           <div className="flex flex-col items-center md:items-start gap-1 mt-2">
             <h4 className="font-semibold text-orange-500 mb-1">Contact Us</h4>
