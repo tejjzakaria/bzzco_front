@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { IconBrandLinkedin } from '@tabler/icons-react'
 import { CONTAINER_PADDING } from '@/lib/styles'
+import AnimatedSection from './AnimatedSection'
 
 interface TeamMember {
   _id: string
@@ -71,20 +72,22 @@ const TeamSection = () => {
   return (
     <div className={`${CONTAINER_PADDING} py-16`}>
       {/* Section Header */}
-      <div className="text-center mb-12">
+      <AnimatedSection direction="up" className="text-center mb-12">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
           Meet Our Team
         </h2>
         <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
           The passionate people behind Baazizi Group, dedicated to transforming the construction materials industry
         </p>
-      </div>
+      </AnimatedSection>
 
       {/* Team Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
         {teamMembers.map((member, index) => (
-          <div
+          <AnimatedSection
             key={index}
+            direction="up"
+            delay={index * 0.1}
             className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden"
           >
             {/* Image Container */}
@@ -135,12 +138,12 @@ const TeamSection = () => {
 
             {/* Decorative element */}
             <div className="absolute top-4 right-4 w-16 h-16 bg-orange-500 rounded-full opacity-0 group-hover:opacity-10 blur-2xl transition-opacity duration-300" />
-          </div>
+          </AnimatedSection>
         ))}
       </div>
 
       {/* Call to Action */}
-      <div className="mt-16 text-center">
+      <AnimatedSection direction="up" delay={0.3} className="mt-16 text-center">
         <div className="inline-block bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl p-8 max-w-2xl">
           <h3 className="text-2xl font-bold text-gray-900 mb-3">
             Want to Join Our Team?
@@ -155,7 +158,7 @@ const TeamSection = () => {
             View Open Positions
           </a>
         </div>
-      </div>
+      </AnimatedSection>
     </div>
   )
 }
